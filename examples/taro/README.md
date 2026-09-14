@@ -2,7 +2,7 @@
 
 从 Taro Playground v1.11.0 迁移的独立示例，保留源项目的功能页面和分类菜单。页面、资源和适配器保存在 `src/playground/`。
 
-本示例从 `taro-ui/examples/demo-htyf` 移入，使用本仓库 `templates/taro` 的工程骨架和已验证的 HTYF 构建配置；不依赖 taro-ui 仓库或其 node_modules。它加入仓库根 pnpm workspace，`@htyf-mp/*` 通过 `workspace:*` 引用 `packages/` 中对应包，统一使用根 `pnpm-lock.yaml`。示例保持 `private: true`，不参与包发布。
+本示例从 `taro-ui/examples/demo-htyf` 移入，保留独立的工程骨架和已验证的 HTYF 构建配置；不依赖 taro-ui 仓库或其 node_modules。它加入仓库根 pnpm workspace，`@htyf-mp/*` 通过 `workspace:*` 引用 `packages/` 中对应包，统一使用根 `pnpm-lock.yaml`。示例保持 `private: true`，不参与包发布。
 
 ## 运行
 

@@ -1,6 +1,6 @@
 # HTYF Taro
 
-Taro 的红糖云服构建目标、React Native 运行时与组件、样式转换工具，以及可运行模板和示例。
+Taro 的红糖云服构建目标、React Native 运行时与组件、样式转换工具，以及可运行示例。
 
 本仓库从 htyf-cli 拆分，保留现有 `@htyf-mp/*` 包名和版本。CLI 通过已发布的 `@htyf-mp/cli` 依赖接入，AI 迁移规则由独立的 htyf-skills 仓库维护。
 
@@ -18,7 +18,7 @@ npm run dev:htyf
 
 `dev:htyf` 和 `build:htyf` 当前都会进入平台菜单，再选择本地开发、真机调试或打包。打包读取 `htyf.config.json` 的应用标识与资源地址、`package.json` 的版本，输出到 `dist_htyf/`；请先核对模板配置。
 
-新 CLI 从本仓库 `templates/taro` 读取 Taro 模板。旧 CLI 仍指向旧仓库布局时，需要升级到包含拆分支持的版本，或使用 htyf-cli 源码入口。
+Taro 项目模板由 htyf-cli 的 `packages/cli/_taro_temp_` 维护。使用 `init` 前请确认已安装的 CLI 版本包含该模板。
 
 ## 目录
 
@@ -29,7 +29,6 @@ npm run dev:htyf
 | `packages/taro-components-rn` | RN 组件实现 |
 | `packages/taro-router-rn`、`packages/taro-runtime-rn` | 路由和运行时 |
 | `packages/css-to-react-native`、`packages/stylelint*` | CSS 转换与样式检查 |
-| `templates/taro` | 用户项目模板，按发布版本安装依赖 |
 | `examples/taro` | 工作区示例，引用本地运行时包 |
 
 ## 开发
@@ -41,7 +40,7 @@ pnpm test:packages
 pnpm verify:packages
 ```
 
-模板不加入开发 workspace，避免把发布依赖改为本地路径。示例加入 workspace，CLI 使用明确的 npm 版本。发布前运行包归档检查，并将编译器、运行时、模板依赖作为配套版本验证。`publish:packages` 会执行真实 npm 发布，仅在准备发布时运行。
+示例加入 workspace，CLI 使用明确的 npm 版本。发布前运行包归档检查，并将编译器、运行时、CLI 模板依赖作为配套版本验证。`publish:packages` 会执行真实 npm 发布，仅在准备发布时运行。
 
 HTYF 专属业务文件使用 `.htyf.*`、平台配置使用 `htyf`；底层 RN 编译器兼容选项不能机械替换。独立 App、微信与 H5 仍需要各平台的构建环境和验收。
 

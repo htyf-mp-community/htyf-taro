@@ -113,6 +113,7 @@ export default async function build (_appPath: string, config: any, onSpawnRunOk
     fse.ensureDirSync(assetsDest)
 
     try {
+      await new Promise<void>((resolve, reject) => {
       const child = spawn(npxCmd, [
         'react-native',
         'bundle',
@@ -131,10 +132,12 @@ export default async function build (_appPath: string, config: any, onSpawnRunOk
         },
         stdio: 'inherit', shell: true
       })
-      child.on('close', (code) => {
-        onSpawnRunOk?.(code || 0)
-        console.log(`进程结束，退出码：${code}`);
-      });
+      child.once('error', reject)
+      child.once('close', (code) => {
+        console.log(`进程结束，退出码：${code}`)
+        if (code === 0) resolve()
+        else reject(new Error(`React Native bundle 构建失败，退出码：${code}`))
+      })
       if (config.qr) {
         process.on('beforeExit', () => {
           previewProd({
@@ -144,6 +147,8 @@ export default async function build (_appPath: string, config: any, onSpawnRunOk
           })
         })
       }
+      })
+      onSpawnRunOk?.(0)
       onFinish(null)
     } catch (e) {
       console.error(e)

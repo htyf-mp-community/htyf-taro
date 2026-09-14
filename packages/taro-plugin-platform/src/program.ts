@@ -188,7 +188,8 @@ export default (ctx: IPluginContext) => {
       }
       // @ts-ignore
       const inquirerFun = typeof inquirer?.prompt === 'function' ? inquirer : inquirer.default;
-      const result = await inquirerFun
+      const nativeBuild = process.env.HTYF_BUILD_MODE === 'native'
+      const result = nativeBuild ? { index: ACTION_TYPES.MP_BUILD } : await inquirerFun
       // @ts-ignore
       .prompt([
         {
@@ -223,44 +224,50 @@ export default (ctx: IPluginContext) => {
         rnRunnerOpts.isWatch = true;
       }
 
-      if (result.index === ACTION_TYPES.MP_DEBUG || result.index === ACTION_TYPES.MP_BUILD) {
+      if (!nativeBuild && (result.index === ACTION_TYPES.MP_DEBUG || result.index === ACTION_TYPES.MP_BUILD)) {
         // 要打生产包让 env 为 production; 让react使用production模式
         process.env.NODE_ENV = 'production'
         await promptAndBumpAppVersion(appPath, inquirerFun)
       }
+      if (nativeBuild) process.env.NODE_ENV = 'production'
       console.log(JSON.stringify(rnRunnerOpts, null, 2))
 
-      makeSureReactNativeInstalled(appPath).then(async () => {
+      try {
+        if (nativeBuild) {
+          const packageInfo = JSON.parse(fs.readFileSync(path.join(appPath, 'package.json'), 'utf8'))
+          if (!checkReactNativeDependencies(packageInfo)) {
+            throw new Error('原生构建需要先安装 React Native 和 HTYF 依赖')
+          }
+        } else {
+          await makeSureReactNativeInstalled(appPath)
+        }
         // build with metro
         const rnRunner = await npm.getNpmPkg('@htyf-mp/taro-rn-runner', appPath)
         process.env.APP_EXPOSES_OPTIONS = '';
         process.env.APP_ROOT_INDEX_PATH = '';
-        if (result.index !== ACTION_TYPES.MP_DEV) {
+        if (result.index !== ACTION_TYPES.MP_DEV && !nativeBuild) {
           process.env.APP_EXPOSES_OPTIONS = JSON.stringify((await getAppExposesOptions(appPath)).APP_EXPOSES_OPTIONS);
           process.env.APP_ROOT_INDEX_PATH = (await getAppExposesOptions(appPath)).APP_ROOT_INDEX_PATH;
         }
         
-        await rnRunner(appPath, rnRunnerOpts,
-        (code) => {
-          if (code === 0) {
-            if (result.index === ACTION_TYPES.MP_DEBUG) {
-              mpBuildShell(appPath, 'debug')
-            }
-            
-            if (result.index === ACTION_TYPES.MP_BUILD) {
-              mpBuildShell(appPath, 'build')
-            }
-          } else {
-            console.error('build failed')
-            process.exit(1)
+        await rnRunner(appPath, rnRunnerOpts, () => {})
+        if (nativeBuild) {
+          const bundlePath = rnRunnerOpts.bundleOutput || path.join(appPath, config.outputRoot || 'dist', 'index.bundle')
+          if (!fs.existsSync(bundlePath) || fs.statSync(bundlePath).size === 0) {
+            throw new Error(`HTYF 原生 JS bundle 缺失或为空: ${bundlePath}`)
           }
-        })
-
-      }, error => {
-        console.log(chalk.red('Error when detecting HTYF-MP packages:'))
-        console.log(error)
-        console.log(`${chalk.greenBright('TIP')}: 1) Try to remove HTYF-MP dependencies in package.json and shoot again; 2) Install the packages above manually.`)
-      })
+          return
+        }
+        if (result.index === ACTION_TYPES.MP_DEBUG || result.index === ACTION_TYPES.MP_BUILD) {
+          const zipPath = await mpBuildShell(appPath, result.index === ACTION_TYPES.MP_DEBUG ? 'debug' : 'build')
+          if (!fs.existsSync(zipPath) || fs.statSync(zipPath).size === 0) {
+            throw new Error(`HTYF 构建产物缺失或为空: ${zipPath}`)
+          }
+        }
+      } catch (error) {
+        console.error(chalk.red('HTYF 构建失败:'), error)
+        throw error
+      }
     }
   })
 }
