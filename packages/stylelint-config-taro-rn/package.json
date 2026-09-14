@@ -1,0 +1,42 @@
+{
+  "name": "@htyf-mp/stylelint-config-taro-rn",
+  "version": "0.7.1",
+  "description": "Shareable stylelint config for React Native CSS modules",
+  "author": "O2Team",
+  "license": "MIT",
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "stylelint",
+    "stylelint-config",
+    "react-native",
+    "css-modules"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/htyf-mp-community/htyf-taro.git",
+    "directory": "packages/stylelint-config-taro-rn"
+  },
+  "scripts": {
+    "test": "cross-env NODE_OPTIONS=\"--experimental-vm-modules --no-warnings\" jest",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+  },
+  "engines": {
+    "node": ">= 18"
+  },
+  "dependencies": {
+    "@htyf-mp/stylelint-taro-rn": "workspace:*"
+  },
+  "devDependencies": {
+    "stylelint": "^16.4.0"
+  },
+  "peerDependencies": {
+    "@htyf-mp/stylelint-taro-rn": "workspace:*",
+    "stylelint": "^16"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

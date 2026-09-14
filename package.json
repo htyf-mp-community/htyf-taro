@@ -1,0 +1,39 @@
+{
+  "name": "htyf-taro",
+  "version": "0.3.10",
+  "private": true,
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "scripts": {
+    "build": "pnpm --filter \"@htyf-mp/*\" --fail-if-no-match -r run build",
+    "test": "pnpm -r run test",
+    "clean": "pnpm -r run clean",
+    "lerna": "node scripts/lerna.mjs",
+    "version:patch": "node scripts/lerna.mjs version patch --no-private",
+    "version:minor": "node scripts/lerna.mjs version minor --no-private",
+    "version:major": "node scripts/lerna.mjs version major --no-private",
+    "publish:packages": "pnpm build && pnpm verify:packages && node scripts/lerna.mjs publish --force-publish --no-private -y",
+    "publish:dev": "pnpm build && pnpm verify:packages && node scripts/lerna.mjs publish --force-publish --no-private -y --dist-tag alpha",
+    "publish:changed": "node scripts/lerna.mjs changed",
+    "verify:packages": "node scripts/audit-packages.mjs",
+    "pack:packages": "pnpm build && pnpm verify:packages",
+    "test:packages": "node --test scripts/package-files.test.mjs"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "eslint": "^9.0.0",
+    "jest": "^29.7.0",
+    "lerna": "^9.0.7",
+    "rimraf": "^6.0.1",
+    "rollup": "^4.62.2",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "@types/minimatch": "5.1.2"
+    }
+  }
+}
