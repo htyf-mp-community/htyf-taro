@@ -16,6 +16,8 @@ npm install
 npm run dev:htyf
 ```
 
+`dev:htyf` 和 `build:htyf` 当前都会进入平台菜单，再选择本地开发、真机调试或打包。打包读取 `htyf.config.json` 的应用标识与资源地址、`package.json` 的版本，输出到 `dist_htyf/`；请先核对模板配置。
+
 新 CLI 从本仓库 `templates/taro` 读取 Taro 模板。旧 CLI 仍指向旧仓库布局时，需要升级到包含拆分支持的版本，或使用 htyf-cli 源码入口。
 
 ## 目录
