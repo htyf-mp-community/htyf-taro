@@ -24,6 +24,7 @@
     "directory": "packages/taro-plugin-platform"
   },
   "scripts": {
+    "test": "node --test tests/*.test.cjs",
     "build": "pnpm run clean && rollup -c",
     "dev": "rollup -c -w",
     "clean": "rimraf ./dist ./types"

@@ -42,3 +42,9 @@ Taro.htyf.test({})
   .then(res => console.log(res))
 ```
 
+
+## 打包与分享二维码
+
+选择“打包小程序”后，插件在 `dist_htyf` 中生成 `app.json`、`dist.dgz`，压缩成功后自动生成分享二维码 `qrcode.png`，并在终端显示分享链接和二维码。二维码包含本次构建的应用信息、版本和资源地址，扫码进入应用分享页。
+
+将配置和资源包分别上传到 `appUrlConfig`、`zipUrl` 地址后，使用 [红糖云服 App](https://mp.dagouzhi.com/#download) 扫码体验。每次重新打包会更新二维码，分享前请同步更新线上资源和展示的图片。

@@ -74,11 +74,11 @@ export async function mpBuildShell(workspaceRoot: string, mode: 'debug' | 'build
     } catch (error) {
       
     }
-    await generateBuildQrCode(mpOutputPath, appJson);
 
     // 压缩输出目录为最终包
     const zipPath = await handleZip(mpInputPath, distPackagePath);
     console.log(`压缩包已创建: ${zipPath}`);
+    await generateBuildQrCode(mpOutputPath, appJson);
 
     if (mode === 'debug') {
       // ========== 启动调试服务器 ==========
@@ -197,27 +197,19 @@ export async function getAppExposesOptions(workspaceRoot: string) {
 }
 
 /**
- * 在构建输出目录生成二维码图片
- *
- * 优先使用 zipUrl，若为空则回退到 appUrlConfig。
+ * 在构建输出目录生成应用分享页二维码。
  *
  * @param {string} outputPath - 构建输出目录
  * @param {object} appJson - 应用配置对象
  * @returns {Promise<void>}
  */
 async function generateBuildQrCode(outputPath: string, appJson: any) {
-  const qrContent = appJson?.zipUrl || appJson?.appUrlConfig;
-  if (!qrContent) {
-    console.warn('未配置 zipUrl/appUrlConfig，跳过二维码生成');
-    return;
-  }
-
+  const shareUrl = `https://mp.dagouzhi.com/share?data=${encodeURIComponent(JSON.stringify(appJson))}`;
   const qrFilePath = path.join(outputPath, 'qrcode.png');
-  await QRCode.toFile(qrFilePath, qrContent, {
-    width: 320,
-    margin: 2
-  });
-  console.log(`二维码已生成: ${qrFilePath}`);
+  await QRCode.toFile(qrFilePath, shareUrl, { scale: 6, margin: 4 });
+  console.log(`分享二维码已生成: ${qrFilePath}`);
+  console.log(`分享链接: ${shareUrl}`);
+  await printQrcode(shareUrl);
 }
 
 export async function handleZip(inputPath, outputPath) {
