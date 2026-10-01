@@ -144,7 +144,7 @@ PODS:
   - hermes-engine/Pre-built (250829098.0.16)
   - JWTDecode (3.0.1)
   - MMKVCore (2.4.0)
-  - NitroGeolocation (1.4.3):
+  - NitroGeolocation (2.0.2):
     - hermes-engine
     - NitroModules
     - RCTRequired
@@ -3036,7 +3036,7 @@ SPEC CHECKSUMS:
   hermes-engine: d5960977a75b9dabe6e2a19472fcd663a88c1a0d
   JWTDecode: 2eed97c2fa46ccaf3049a787004eedf0be474a87
   MMKVCore: 3d16ce9f7d411e135020915fde98a056859a1efa
-  NitroGeolocation: c99862e219b43e9a419cb382fcccd8e4d6059dd9
+  NitroGeolocation: 7ad9064c5e1675417625df0d7458112576ab6f50
   NitroMmkv: 85a251e15c39d7c95fe58cf40786fa126b8d143c
   NitroModules: 452230d9b63c6c3f59dd97eeaa27ec3449271d4a
   RCTDeprecation: bccb6545c26db881ecddfd83a3f9ea82aba1605f
