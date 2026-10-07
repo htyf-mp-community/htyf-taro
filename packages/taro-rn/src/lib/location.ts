@@ -52,6 +52,7 @@ export function startLocationUpdate (opts: Taro.startLocationUpdate.Option): Pro
     }, {
       timeout: 10,
       maximumAge: 0,
+      // @ts-ignore
       enableHighAccuracy: true,
       distanceFilter: 0,
     })
