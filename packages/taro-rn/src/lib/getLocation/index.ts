@@ -23,6 +23,7 @@ export async function getLocation (opts: Taro.getLocation.Option = {}): Promise<
     const { coords } = await getCurrentPosition({
       timeout: highAccuracyExpireTime,
       maximumAge: 0,
+      // @ts-ignore
       enableHighAccuracy: isHighAccuracy,
     })
     const { latitude, longitude, altitude, accuracy, speed } = coords
