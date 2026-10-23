@@ -12,6 +12,8 @@ import sassTransform from './sass'
 import { StyleSheetValidation } from './StyleSheet'
 import stylusTransform, { defaultOptions as stylusDefaultOptions } from './stylus'
 
+type ProcessedStyle = Omit<Awaited<ReturnType<typeof postcssTransform>>, 'content' | 'warn' | 'warnings'> & { filename: string }
+
 // @ts-ignore
 export function getWrapedCSS (css) {
   return `
@@ -130,7 +132,7 @@ export default class StyleTransform {
    * @param {string} filename
    * @param {object} options
    */
-  async processStyle (src: string, filename: string, options: TransformOptions) {
+  async processStyle (src: string, filename: string, options: TransformOptions): Promise<ProcessedStyle> {
     let result: undefined | RenderAdditionalResult
     let css = src
     let map: undefined | string
@@ -173,7 +175,7 @@ export default class StyleTransform {
     postcssConfig,
     transformOptions,
     additionalData
-  }: PostcssParam) {
+  }: PostcssParam): Promise<ProcessedStyle> {
     const plugins = makePostcssPlugins({
       filename,
       postcssConfig,

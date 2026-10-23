@@ -13,6 +13,7 @@ const Taro = {
 describe('clipboard', () => {
   describe('setClipboardData', () => {
     test('should set value into Clipboard', async () => {
+      jest.useFakeTimers()
       const data = 'mockString'
       const success = jest.fn()
       const fail = jest.fn()
@@ -35,6 +36,8 @@ describe('clipboard', () => {
 
       const clipData = await Clipboard.getString()
       expect(clipData).toEqual(data)
+      jest.runOnlyPendingTimers()
+      jest.useRealTimers()
     })
 
     test('should fail when data is not string', () => {

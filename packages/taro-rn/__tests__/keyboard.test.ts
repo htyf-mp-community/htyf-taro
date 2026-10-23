@@ -3,6 +3,12 @@ import { DeviceEventEmitter, Keyboard } from 'react-native'
 import * as Taro from '../src/lib/keyboard'
 
 describe('keyboard', () => {
+  beforeAll(() => {
+    jest.spyOn(Keyboard, 'addListener').mockImplementation((event, listener) =>
+      DeviceEventEmitter.addListener(event, listener)
+    )
+  })
+  afterAll(() => jest.restoreAllMocks())
   afterEach(() => Taro.offKeyboardHeightChange())
 
   it('preserves other consumers when the last Taro callback is removed', () => {

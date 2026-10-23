@@ -18,7 +18,7 @@ describe('<Button />', () => {
     expect(getByTestId('loading')).toHaveStyle({
       marginRight: 0
     })
-    expect(getByLabelText('loading image')).toHaveProp('source', 1)
+    expect(getByLabelText('loading image').props.source.testUri).toContain('loading.png')
   })
 
   it('render loading & warn button with text', () => {
@@ -26,7 +26,7 @@ describe('<Button />', () => {
     expect(getByTestId('loading')).toHaveStyle({
       marginRight: 5
     })
-    expect(getByLabelText('loading image')).toHaveProp('source', 1)
+    expect(getByLabelText('loading image').props.source.testUri).toContain('loading-warn.png')
   })
 
   it('disabled button', () => {

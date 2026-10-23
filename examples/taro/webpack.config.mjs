@@ -26,7 +26,7 @@ const appAliasOptions = process.env.APP_ALIAS_OPTIONS;
 // 读取package.json，获取应用基本信息
 const pkg = fse.readJsonSync(path.join(__dirname, './package.json'));
 // 读取依赖共享配置
-const dependencies = fse.readJsonSync(require.resolve('@htyf-mp/cli/src/shared-output.json'));
+const dependencies = fse.readJsonSync(require.resolve('@htyf-mp/taro-plugin-platform/shared-output.json'));
 
 // 记录构建时间戳
 const time = Date.now();
@@ -59,7 +59,7 @@ export default async (env = {}) => {
   const { entry = './index.js', platform = 'ios' } = env;
   const context = env.context || __dirname;
   // 获取Repack的resolve配置
-  const _options = Repack.getResolveOptions();
+  const _options = Repack.getResolveOptions(platform);
   // 解析微前端相关配置
   let mpOptions = {};
   let aliasOptions = {};

@@ -1,4 +1,5 @@
 import { render } from '@testing-library/react-native'
+import AntPickerView from '@ant-design/react-native/lib/picker-view'
 import * as React from 'react'
 import { View } from 'react-native'
 
@@ -44,7 +45,10 @@ describe('PickerView', () => {
         </PickerViewColumn>
       </PickerView>
     )
-    const tree = component.toJSON()
-    expect(tree).toMatchSnapshot()
+    const data = component.UNSAFE_getByType(AntPickerView).props.data
+    expect(data).toHaveLength(3)
+    expect(data[0][0]).toEqual({ label: '2010年', value: 0 })
+    expect(data[1][0]).toEqual({ label: '1月', value: 0 })
+    expect(data[2][0]).toEqual({ label: '1日', value: 0 })
   })
 })

@@ -17,7 +17,7 @@ const buildModule = new Module(sourcePath, module);
 buildModule.filename = sourcePath;
 buildModule.paths = module.paths;
 buildModule._compile(compiled, sourcePath);
-const { mpBuildShell } = buildModule.exports;
+const { mpBuildShell, getAppExposesOptions } = buildModule.exports;
 
 test('packaging generates a share QR from final config and refreshes it on rebuild', async t => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'htyf-taro-share-'));
@@ -33,6 +33,9 @@ test('packaging generates a share QR from final config and refreshes it on rebui
   for (const version of ['1.0.0', '1.1.0']) {
     logs.length = 0;
     fs.writeFileSync(path.join(root, 'package.json'), JSON.stringify({ version }));
+    const { APP_EXPOSES_OPTIONS } = await getAppExposesOptions(root);
+    assert.equal(APP_EXPOSES_OPTIONS.appid, 'share-test');
+    assert.equal(APP_EXPOSES_OPTIONS.version, version);
     const zipPath = await mpBuildShell(root, 'build');
     const config = JSON.parse(fs.readFileSync(path.join(root, 'dist_htyf/app.json')));
     assert.equal(config.version, version);

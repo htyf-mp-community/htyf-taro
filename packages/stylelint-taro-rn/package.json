@@ -34,7 +34,7 @@
     "build": "pnpm run clean && pnpm run rollup --environment NODE_ENV:production",
     "dev": "pnpm run rollup --environment NODE_ENV:development -w",
     "rollup": "rollup --config rollup.config.js",
-    "test": "cross-env NODE_OPTIONS=\"--experimental-vm-modules --no-warnings\" jest",
+    "test": "cross-env NODE_OPTIONS=\"--experimental-vm-modules --no-warnings\" jest --runInBand --watchman=false",
     "lint": "eslint src --ext .js,.jsx,.ts,.tsx"
   },
   "repository": {

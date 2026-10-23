@@ -78,11 +78,11 @@ function _request<T = any>(options: Taro.request.Option): Taro.RequestTask<T> {
       return response
     })
 
+  let timer: ReturnType<typeof setTimeout> | undefined
   const timeoutPromise = new Promise((_resolve, reject) => {
-    const timer = setTimeout(() => {
+    timer = setTimeout(() => {
       controller?.abort()
       reject(Error('request:fail timeout'))
-      clearTimeout?.(timer)
     }, options.timeout ?? 60000)
   })
 
@@ -92,6 +92,8 @@ function _request<T = any>(options: Taro.request.Option): Taro.RequestTask<T> {
   }).catch(err => {
     res.errMsg = err.message
     return errorHandler(fail, complete)(res)
+  }).finally(() => {
+    if (timer) clearTimeout(timer)
   })
 
   p.abort = function () {

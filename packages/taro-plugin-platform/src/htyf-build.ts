@@ -189,6 +189,8 @@ export async function getAppExposesOptions(workspaceRoot: string) {
     outputPath: path.join(workspaceRoot, 'dist'),  // webpack 构建输出目录
     extraChunksPath: path.join(workspaceRoot, 'dist'),
     manifest: path.join(workspaceRoot, 'dist', 'manifest.json'),
+    appid,
+    version,
   }
   return {
     APP_EXPOSES_OPTIONS: mpOptions,

@@ -91,6 +91,11 @@ function collectTaroPackageChanges(packageJson, targetVersion) {
         continue;
       }
 
+      // 本仓库通过 workspace 协议链接本地包，不应改成发布版本。
+      if (String(version).startsWith('workspace:')) {
+        continue;
+      }
+
       if (normalizeVersion(version) !== targetVersion) {
         changes.push({
           name: name as string,

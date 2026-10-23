@@ -9,6 +9,8 @@ export declare function getAppExposesOptions(workspaceRoot: string): Promise<{
         outputPath: string;
         extraChunksPath: string;
         manifest: string;
+        appid: any;
+        version: any;
     };
     APP_ROOT_INDEX_PATH: string;
 }>;

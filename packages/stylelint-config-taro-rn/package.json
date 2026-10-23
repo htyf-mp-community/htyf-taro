@@ -20,7 +20,7 @@
     "directory": "packages/stylelint-config-taro-rn"
   },
   "scripts": {
-    "test": "cross-env NODE_OPTIONS=\"--experimental-vm-modules --no-warnings\" jest",
+    "test": "cross-env NODE_OPTIONS=\"--experimental-vm-modules --no-warnings\" jest --runInBand --watchman=false",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "engines": {

@@ -24,6 +24,16 @@ describe('request', () => {
   })
 
   describe('request', () => {
+    test('clears the timeout after a successful response', async () => {
+      jest.useFakeTimers()
+      try {
+        await Taro.request({ url: 'https://test.taro.com/v1' })
+        expect(jest.getTimerCount()).toBe(0)
+      } finally {
+        jest.useRealTimers()
+      }
+    })
+
     // taro@3 不支持
     // test('直接传入url时能正常返回', async () => {
     //   const expectData = { data: 'calorie' }

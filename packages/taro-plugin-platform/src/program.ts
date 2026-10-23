@@ -246,8 +246,9 @@ export default (ctx: IPluginContext) => {
         process.env.APP_EXPOSES_OPTIONS = '';
         process.env.APP_ROOT_INDEX_PATH = '';
         if (result.index !== ACTION_TYPES.MP_DEV && !nativeBuild) {
-          process.env.APP_EXPOSES_OPTIONS = JSON.stringify((await getAppExposesOptions(appPath)).APP_EXPOSES_OPTIONS);
-          process.env.APP_ROOT_INDEX_PATH = (await getAppExposesOptions(appPath)).APP_ROOT_INDEX_PATH;
+          const exposesOptions = await getAppExposesOptions(appPath);
+          process.env.APP_EXPOSES_OPTIONS = JSON.stringify(exposesOptions.APP_EXPOSES_OPTIONS);
+          process.env.APP_ROOT_INDEX_PATH = exposesOptions.APP_ROOT_INDEX_PATH;
         }
         
         await rnRunner(appPath, rnRunnerOpts, () => {})
