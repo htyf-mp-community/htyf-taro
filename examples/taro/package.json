@@ -125,7 +125,7 @@
     "@callstack/repack-plugin-reanimated": "5.4.0",
     "@commitlint/cli": "19.8.1",
     "@commitlint/config-conventional": "19.8.1",
-    "@htyf-mp/cli": "^0.7.0",
+    "@htyf-mp/cli": "^0.7.9",
     "@htyf-mp/stylelint-config-taro-rn": "workspace:*",
     "@htyf-mp/stylelint-taro-rn": "workspace:*",
     "@pmmmwh/react-refresh-webpack-plugin": "0.5.5",
