@@ -25,10 +25,10 @@
 import * as React from 'react'
 import {
   Animated,
-  DimensionValue,
   Easing,
   Text,
   View,
+  type ViewStyle,
 } from 'react-native'
 
 import { ProgressProps, ProgressState } from './PropsType'
@@ -127,7 +127,7 @@ export default class _Progress extends React.Component<ProgressProps, ProgressSt
         <View
           style={[
             styles.bar, {
-              height: strokeWidth as (DimensionValue | undefined),
+              height: strokeWidth as ViewStyle['height'],
               backgroundColor
             }
           ]}

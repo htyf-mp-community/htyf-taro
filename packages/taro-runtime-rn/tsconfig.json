@@ -11,6 +11,8 @@
     "sourceMap": true,
     "declaration": true,
     "jsx": "react",
+    "moduleResolution": "bundler",
+    "customConditions": ["react-native-legacy-deep-imports"],
     "lib": ["ESNEXT"],
     "types": ["react-native", "node"]
   },

@@ -193,7 +193,7 @@ export async function scanCode (option: Taro.scanCode.Option = {}): Promise<Taro
 
     scannerView = new RootSiblings(
       (<View style={[styles.container]}>
-        <StatusBar backgroundColor="rgba(0, 0, 0, 0)" translucent hidden={Platform.OS === 'ios'} />
+        <StatusBar hidden={Platform.OS === 'ios'} />
         <CameraView
           facing="back"
           onBarcodeScanned={onBarcodeScanned}

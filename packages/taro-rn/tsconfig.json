@@ -10,6 +10,8 @@
     "outDir": "./dist",
     "sourceMap": true,
     "jsx": "react",
+    "moduleResolution": "bundler",
+    "customConditions": ["react-native-legacy-deep-imports"],
     "lib": ["ESNEXT"],
     "paths": {
       "@tarojs/runtime": ["./types/runtime.d.ts"],

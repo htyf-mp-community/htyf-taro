@@ -11,7 +11,7 @@ import {
   type VideoPlayer,
 } from 'expo-video'
 import React, { Component, createRef } from 'react'
-import { DimensionValue, ImageStyle } from 'react-native'
+import { ImageStyle, type ViewStyle } from 'react-native'
 
 import Image from '../Image'
 import Text from '../Text'
@@ -456,7 +456,7 @@ class _Video extends Component<Props, any> {
           <VideoView
             ref={this.videoViewRef}
             player={this.player}
-            style={Object.assign({ width: '100%', height: '100%' }, style) as Record<string, DimensionValue>}
+            style={Object.assign({ width: '100%', height: '100%' }, style) as Record<string, ViewStyle['width']>}
             contentFit={ObjectFit[objectFit] || 'contain'}
             nativeControls={controls}
             fullscreenOptions={{ enable: true }}

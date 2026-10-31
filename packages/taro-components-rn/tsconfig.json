@@ -13,6 +13,8 @@
     "inlineSources": true,
     "esModuleInterop": true,
     "jsx": "react-jsx",
+    "moduleResolution": "bundler",
+    "customConditions": ["react-native-legacy-deep-imports"],
     "lib": ["ESNEXT"],
     "types": ["react-native", "jest"]
   },

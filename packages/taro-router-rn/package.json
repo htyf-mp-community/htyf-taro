@@ -1,6 +1,6 @@
 {
   "name": "@htyf-mp/taro-router-rn",
-  "version": "0.7.8",
+  "version": "0.7.9",
   "description": "Taro-router-rn",
   "author": "dgz",
   "license": "MIT",
@@ -39,17 +39,18 @@
     "query-string": "9.0.0"
   },
   "devDependencies": {
-    "react-native": "0.86.3",
+    "@types/react": "19.3.0",
+    "react-native": "0.88.1",
     "react-native-gesture-handler": "3.3.0",
     "react-native-safe-area-context": "5.10.1",
-    "react-native-screens": "4.28.0"
+    "react-native-screens": "4.30.0"
   },
   "peerDependencies": {
-    "react": "19.2.8",
-    "react-native": "0.86.3",
+    "react": "19.3.0",
+    "react-native": "0.88.1",
     "react-native-gesture-handler": "3.3.0",
     "react-native-safe-area-context": "5.10.1",
-    "react-native-screens": "4.28.0"
+    "react-native-screens": "4.30.0"
   },
   "publishConfig": {
     "access": "public"
