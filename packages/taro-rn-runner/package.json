@@ -1,6 +1,6 @@
 {
   "name": "@htyf-mp/taro-rn-runner",
-  "version": "0.7.9",
+  "version": "0.7.10",
   "description": "ReactNative build tool for taro",
   "author": "O2Team",
   "license": "MIT",
@@ -60,7 +60,7 @@
     "@types/react": "19.3.0",
     "babel-plugin-transform-react-jsx-to-rn-stylesheet": "4.2.0",
     "babel-preset-taro": "4.2.1",
-    "expo": "58.0.21",
+    "expo": "58.0.22",
     "expo-file-system": "58.0.13",
     "query-string": "^9.0.0",
     "react-is": "^18.3.1",
@@ -70,8 +70,8 @@
   },
   "peerDependencies": {
     "babel-preset-taro": "4.2.0",
-    "expo": "58.0.21",
-    "react": "19.3.0",
+    "expo": "58.0.22",
+    "react": "19.3.1",
     "react-native": "0.88.1"
   },
   "publishConfig": {
